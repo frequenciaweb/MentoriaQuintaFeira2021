@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyVersion>1.0.3.3</AssemblyVersion>
+    <FileVersion>1.0.3.3</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infra\MentoriaQuintaFeira2021.Infra.CrossCutting\MentoriaQuintaFeira2021.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\..\Infra\MentoriaQuintaFeira2021.Infra.Data\MentoriaQuintaFeira2021.Infra.Data.csproj" />
+    <ProjectReference Include="..\MentoriaQuintaFeira2021.Domain\MentoriaQuintaFeira2021.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

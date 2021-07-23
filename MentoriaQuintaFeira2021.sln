@@ -3,7 +3,30 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentoriaQuintaFeira2021", "MentoriaQuintaFeira2021.csproj", "{DC2DB363-85A5-4EFA-901E-0474F3A55F8C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{4CA86EC6-2BF9-471B-B3BC-650AB9B58E15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4D7FCF21-1EDA-4F2F-AB1D-8C9E665B4559}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{4399AAF5-C55B-46EC-864A-962F96C5567D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B14CBDA2-1082-47E0-A86E-7A12C2E8C8C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentoriaQuintaFeira2021.Domain", "Domain\MentoriaQuintaFeira2021.Domain\MentoriaQuintaFeira2021.Domain.csproj", "{51752F51-0840-4D8D-B074-B619B522BA1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentoriaQuintaFeira2021.Domain.Services", "Domain\MentoriaQuintaFeira2021.Domain.Services\MentoriaQuintaFeira2021.Domain.Services.csproj", "{830F0876-404B-44C2-9833-2FCB4C2C146A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentoriaQuintaFeira2021.Infra.Data", "Infra\MentoriaQuintaFeira2021.Infra.Data\MentoriaQuintaFeira2021.Infra.Data.csproj", "{1E676B65-67D0-4672-844D-252735C7B7D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentoriaQuintaFeira2021.Test", "Test\MentoriaQuintaFeira2021.Test\MentoriaQuintaFeira2021.Test.csproj", "{91A5DE5E-DCFF-40FD-8470-278A5C925B64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentoriaQuintaFeira2021", "UI\MentoriaQuintaFeira2021.csproj", "{7558FFBC-B550-4059-9BA2-15BB8D19F2DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentoriaQuintaFeira2021.Infra.CrossCutting", "Infra\MentoriaQuintaFeira2021.Infra.CrossCutting\MentoriaQuintaFeira2021.Infra.CrossCutting.csproj", "{55BE3232-4AEB-4DE2-8AD9-FA9CB70F0C86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E2C668C-CA83-4E51-A94F-B49CBA133DB7}"
+	ProjectSection(SolutionItems) = preProject
+		Path Code Generator.txt = Path Code Generator.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +34,43 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DC2DB363-85A5-4EFA-901E-0474F3A55F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC2DB363-85A5-4EFA-901E-0474F3A55F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC2DB363-85A5-4EFA-901E-0474F3A55F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC2DB363-85A5-4EFA-901E-0474F3A55F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51752F51-0840-4D8D-B074-B619B522BA1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51752F51-0840-4D8D-B074-B619B522BA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51752F51-0840-4D8D-B074-B619B522BA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51752F51-0840-4D8D-B074-B619B522BA1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{830F0876-404B-44C2-9833-2FCB4C2C146A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{830F0876-404B-44C2-9833-2FCB4C2C146A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{830F0876-404B-44C2-9833-2FCB4C2C146A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{830F0876-404B-44C2-9833-2FCB4C2C146A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E676B65-67D0-4672-844D-252735C7B7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E676B65-67D0-4672-844D-252735C7B7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E676B65-67D0-4672-844D-252735C7B7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E676B65-67D0-4672-844D-252735C7B7D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91A5DE5E-DCFF-40FD-8470-278A5C925B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91A5DE5E-DCFF-40FD-8470-278A5C925B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91A5DE5E-DCFF-40FD-8470-278A5C925B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91A5DE5E-DCFF-40FD-8470-278A5C925B64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7558FFBC-B550-4059-9BA2-15BB8D19F2DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7558FFBC-B550-4059-9BA2-15BB8D19F2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7558FFBC-B550-4059-9BA2-15BB8D19F2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7558FFBC-B550-4059-9BA2-15BB8D19F2DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55BE3232-4AEB-4DE2-8AD9-FA9CB70F0C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55BE3232-4AEB-4DE2-8AD9-FA9CB70F0C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55BE3232-4AEB-4DE2-8AD9-FA9CB70F0C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55BE3232-4AEB-4DE2-8AD9-FA9CB70F0C86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51752F51-0840-4D8D-B074-B619B522BA1C} = {4D7FCF21-1EDA-4F2F-AB1D-8C9E665B4559}
+		{830F0876-404B-44C2-9833-2FCB4C2C146A} = {4D7FCF21-1EDA-4F2F-AB1D-8C9E665B4559}
+		{1E676B65-67D0-4672-844D-252735C7B7D5} = {4399AAF5-C55B-46EC-864A-962F96C5567D}
+		{91A5DE5E-DCFF-40FD-8470-278A5C925B64} = {B14CBDA2-1082-47E0-A86E-7A12C2E8C8C5}
+		{7558FFBC-B550-4059-9BA2-15BB8D19F2DB} = {4CA86EC6-2BF9-471B-B3BC-650AB9B58E15}
+		{55BE3232-4AEB-4DE2-8AD9-FA9CB70F0C86} = {4399AAF5-C55B-46EC-864A-962F96C5567D}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2F0FE93B-5D7C-4C86-9C96-13D563C77EE1}
+		SolutionGuid = {1868E4F5-F679-44B5-902B-35F96FF53BC0}
 	EndGlobalSection
 EndGlobal

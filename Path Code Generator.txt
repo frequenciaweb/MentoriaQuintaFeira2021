@@ -1,0 +1,1 @@
+C:\Users\Seu Usuario\.nuget\packages\microsoft.visualstudio.web.codegenerators.mvc\5.0.2\Templates
