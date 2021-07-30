@@ -1,26 +1,26 @@
-﻿using MentoriaQuintaFeira2021.Domain.Contracts.Repositories;
-using MentoriaQuintaFeira2021.Domain.Contracts.Services;
-using MentoriaQuintaFeira2021.Domain.Entities;
+﻿using MentoriaQuintaFeira2021.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace MentoriaQuintaFeira2021.Controllers
 {
     public class ClientesController : Controller
-    {
-        private IServicoCliente ServicoCliente { get; set; }
-        private IRepositorioCliente RepositorioCliente { get; set; }
-
-        public ClientesController(IServicoCliente servicoCliente, IRepositorioCliente repositorioCliente)
-        {
-            ServicoCliente = servicoCliente;
-            RepositorioCliente = repositorioCliente;
-        }
+    {      
 
         // GET: Clientes
         public IActionResult Index()
         {
-            return View(RepositorioCliente.Obter());
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri("https://localhost:44357");
+                var response = client.GetAsync("/api/cliente").Result;
+                var stringJson = response.Content.ReadAsStringAsync().Result;
+                Cliente cliente = JsonConvert.DeserializeObject<Cliente>(stringJson);
+                return View(cliente);
+            }   
         }
 
         // GET: Clientes/Details/5
@@ -30,8 +30,14 @@ namespace MentoriaQuintaFeira2021.Controllers
             {
                 return NotFound();
             }
-
-            Cliente cliente = RepositorioCliente.Obter((int)id);
+            Cliente cliente;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri("https://localhost:44357");
+                var response = client.GetAsync("/api/cliente/"+id).Result;
+                var stringJson = response.Content.ReadAsStringAsync().Result;
+                cliente = JsonConvert.DeserializeObject<Cliente>(stringJson);                
+            }
 
             if (cliente == null)
             {
@@ -56,9 +62,19 @@ namespace MentoriaQuintaFeira2021.Controllers
         {
             if (ModelState.IsValid)
             {
-                ServicoCliente.Incluir(cliente);
+                
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new System.Uri("https://localhost:44357");
+                    var content = new StringContent(JsonConvert.SerializeObject(client), Encoding.UTF8, "application/json");
+
+                    var response = client.PostAsync("/api/cliente/", content).Result;
+                    var stringJson = response.Content.ReadAsStringAsync().Result;                    
+                }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(cliente);
         }
 
@@ -70,7 +86,14 @@ namespace MentoriaQuintaFeira2021.Controllers
                 return NotFound();
             }
 
-            Cliente cliente = RepositorioCliente.Obter((int)id);
+            Cliente cliente;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri("https://localhost:44357");
+                var response = client.GetAsync("/api/cliente/" + id).Result;
+                var stringJson = response.Content.ReadAsStringAsync().Result;
+                cliente = JsonConvert.DeserializeObject<Cliente>(stringJson);
+            }
 
             if (cliente == null)
             {
@@ -93,21 +116,15 @@ namespace MentoriaQuintaFeira2021.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    ServicoCliente.Alterar(cliente);
+                    client.BaseAddress = new System.Uri("https://localhost:44357");
+                    var content = new StringContent(JsonConvert.SerializeObject(client), Encoding.UTF8, "application/json");
+
+                    var response = client.PutAsync("/api/cliente/"+id, content).Result;
+                    var stringJson = response.Content.ReadAsStringAsync().Result;
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ClienteExists(cliente.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(cliente);
@@ -121,7 +138,14 @@ namespace MentoriaQuintaFeira2021.Controllers
                 return NotFound();
             }
 
-            Cliente cliente = RepositorioCliente.Obter((int)id);
+            Cliente cliente;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri("https://localhost:44357");
+                var response = client.GetAsync("/api/cliente/" + id).Result;
+                var stringJson = response.Content.ReadAsStringAsync().Result;
+                cliente = JsonConvert.DeserializeObject<Cliente>(stringJson);
+            }
 
             if (cliente == null)
             {
@@ -136,18 +160,24 @@ namespace MentoriaQuintaFeira2021.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var cliente = RepositorioCliente.Obter((int)id);
-            if (cliente == null)
+            using (var client = new HttpClient())
             {
-                return NotFound();
+                client.BaseAddress = new System.Uri("https://localhost:44357");
+                var response = client.DeleteAsync("/api/cliente/" + id).Result;
+                var stringJson = response.Content.ReadAsStringAsync().Result;                
             }
-            ServicoCliente.Excluir(cliente);
             return RedirectToAction(nameof(Index));
         }
 
         private bool ClienteExists(int id)
         {
-            return RepositorioCliente.Obter(id) != null;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri("https://localhost:44357");
+                var response = client.GetAsync("/api/cliente/" + id).Result;
+                var stringJson = response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<Cliente>(stringJson) != null;
+            }
         }
     }
 }
