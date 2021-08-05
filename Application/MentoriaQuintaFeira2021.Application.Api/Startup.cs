@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +32,18 @@ namespace MentoriaQuintaFeira2021.Application.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EFContext>();
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            string host = Configuration["db_host"];
+            string senha = Configuration["db_senha"];
+
+            if (!string.IsNullOrEmpty(host) || !string.IsNullOrEmpty(senha))
+            {
+                connectionString = $@"Persist Security Info=False;User ID=sa;Password={senha};Initial Catalog=mentoria_quinta_feira;Server={host}";
+            }
+
+            services.AddDbContext<EFContext>(options => options.UseSqlServer(connectionString));
+
 
             services.AddTransient<IRepositorioProduto, RepositorioProduto>();
             services.AddTransient<IRepositorioCliente, RepositorioCliente>();

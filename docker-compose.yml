@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  mentoriaquintafeira2021:
+    image: ${DOCKER_REGISTRY-}mentoriaquintafeira2021
+    build:
+      context: .
+      dockerfile: UI/Dockerfile
+    ports:
+     - 44364:443 
+    environment:
+     - db_senha=A1b2c3d4e5f6
+     - db_host=mentoria_quinta_feira_banco
+
+  mentoriaquintafeira2021.application.api:
+    image: ${DOCKER_REGISTRY-}mentoriaquintafeira2021applicationapi
+    build:
+      context: .
+      dockerfile: Application/MentoriaQuintaFeira2021.Application.Api/Dockerfile
+    ports:
+     - 44365:443 
+    environment:
+     - db_senha=A1b2c3d4e5f6
+     - db_host=mentoria_quinta_feira_banco 
+
+  sqlData:
+    image: mcr.microsoft.com/mssql/server:2017-latest   
+    environment:
+     - SA_PASSWORD=A1b2c3d4e5f6
+     - ACCEPT_EULA=Y
+    hostname: 
+        mentoria_quinta_feira_banco 
+    ports:
+     - 5434:1433  
+     

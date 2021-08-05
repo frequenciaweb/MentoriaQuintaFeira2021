@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace MentoriaQuintaFeira2021
 {
@@ -25,7 +26,18 @@ namespace MentoriaQuintaFeira2021
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EFContext>();
+           
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            string host = Configuration["db_host"];
+            string senha = Configuration["db_senha"];
+
+            if (!string.IsNullOrEmpty(host) || !string.IsNullOrEmpty(senha))
+            {
+                connectionString = $@"Persist Security Info=False;User ID=sa;Password={senha};Initial Catalog=mentoria_quinta_feira;Server={host}";
+            }
+
+            services.AddDbContext<EFContext>(options => options.UseSqlServer(connectionString));
 
             services.AddTransient<IRepositorioProduto, RepositorioProduto>();
             services.AddTransient<IRepositorioCliente, RepositorioCliente>();
