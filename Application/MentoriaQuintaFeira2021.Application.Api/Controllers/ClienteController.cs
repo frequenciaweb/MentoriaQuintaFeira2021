@@ -1,4 +1,5 @@
-﻿using MentoriaQuintaFeira2021.Domain.Contracts.Repositories;
+﻿using MentoriaQuintaFeira2021.Application.Api.RequestResponse;
+using MentoriaQuintaFeira2021.Domain.Contracts.Repositories;
 using MentoriaQuintaFeira2021.Domain.Contracts.Services;
 using MentoriaQuintaFeira2021.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -26,21 +27,21 @@ namespace MentoriaQuintaFeira2021.Application.Api.Controllers
 
         // GET: api/<ClienteController>
         [HttpGet]
-        public List<Cliente> Get()
+        public List<ClienteResponse> Get()
         {
-            return RepositorioCliente.Obter();
+            return RepositorioCliente.Obter().Select(x => new ClienteResponse { ID = x.ID, Nome = x.Nome }).ToList();
         }
 
         // GET api/<ClienteController>/5
         [HttpGet("{id}")]
-        public Cliente Get(int id)
+        public ClienteResponse Get(int id)
         {
-            return RepositorioCliente.Obter(id);
+            return new ClienteResponse(RepositorioCliente.Obter(id));
         }
 
         // POST api/<ClienteController>
         [HttpPost]
-        public void Post(Cliente cliente)
+        public void Post(ClienteRequest cliente)
         {
             if (ModelState.IsValid)
             {
@@ -50,12 +51,9 @@ namespace MentoriaQuintaFeira2021.Application.Api.Controllers
 
         // PUT api/<ClienteController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id,Cliente cliente)
+        public IActionResult Put(int id,ClienteRequest cliente)
         {
-            if (id != cliente.ID)
-            {
-                return BadRequest();
-            }
+            return BadRequest();        
             ServicoCliente.Alterar(cliente);
             return Ok();
         }
