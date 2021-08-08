@@ -1,14 +1,14 @@
 ﻿using MentoriaQuintaFeira2021.Domain.Entities;
 using System.Collections.Generic;
 
-namespace MentoriaQuintaFeira2021.Application.Api.RequestResponse
+namespace MentoriaQuintaFeira2021.Domain.RequestResponse
 {
-    public class ClienteResponse
+    public class RespostaCliente
     {
 
-        public ClienteResponse() { }
+        public RespostaCliente() { }
 
-        public ClienteResponse(Cliente cliente)
+        public RespostaCliente(Cliente cliente)
         {
             ID = cliente.ID;
             Nome = cliente.Nome;
