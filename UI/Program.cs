@@ -17,10 +17,10 @@ namespace MentoriaQuintaFeira2021
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
+                var context = services.GetRequiredService<EFContext>();
                 try
                 {
-                    var context = services.GetRequiredService<EFContext>();
+                    
                     if (context.Database.EnsureCreated())
                     {
                         context.Database.Migrate();
@@ -31,6 +31,7 @@ namespace MentoriaQuintaFeira2021
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
+                SEED.Populate(context);
             }
 
             host.Run();
