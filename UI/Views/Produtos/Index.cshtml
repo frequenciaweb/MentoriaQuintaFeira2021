@@ -9,6 +9,67 @@
 <p>
     <a class="btn btn-success" asp-action="Create">Cadastrar</a>
 </p>
+
+<script type="text/javascript">
+
+    var contador = 0;
+
+    function removerFiltro(id) {
+        document.getElementById("filtro" + id).innerHTML = "";
+    }
+
+    function addFiltro() {
+
+        contador++;
+
+        var div = document.createElement("div");
+        div.setAttribute("id", 'filtro' + contador);
+
+        var html = `
+          <div class="row"> 
+            <div class="form-group col-4">
+                <label>Pesquisar por</label>
+                <select name="tipoPesquisa[]" id="tipoPesquisa${contador}" class="form-control">
+                    <option value="1">Descrição</option>
+                    <option value="2">Preço</option>
+                    <option value="3">Categoria</option>
+                    <option value="4">Quantidade</option>
+                </select>
+            </div>
+            <div class="form-group col-7">
+                <label>Digite</label>
+                <input name="valor[]" id="valor${contador}" type="text" class="form-control" />
+            </div>
+            <div class="form-group col-1">
+                <button onclick='removerFiltro(${contador})' type='button' class='btn btn-danger'style="margin-top: 30px">X</button>
+            </div>
+        </div>`;
+
+        div.innerHTML = html;
+       document.getElementById("campos-dinamicos").appendChild(div);
+
+    }
+
+</script>
+
+<form method="post" asp-controller="Produtos" asp-action="Index">
+    <div id="campos-dinamicos"></div>    
+    <button type="button" onclick="addFiltro()" class="btn btn-outline-info">Add Filtro</button>
+    <button class="btn btn-primary">Pesquisar</button>
+</form>
+<br />
+
+@if (!string.IsNullOrEmpty(ViewBag.Erro))
+{
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Ops!</strong> @ViewBag.Erro
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
+
+
 <table class="table">
     <thead>
         <tr>

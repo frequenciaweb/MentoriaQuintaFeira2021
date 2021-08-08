@@ -1,8 +1,12 @@
 ﻿using MentoriaQuintaFeira2021.Domain.Contracts.Repositories;
 using MentoriaQuintaFeira2021.Domain.Contracts.Services;
 using MentoriaQuintaFeira2021.Domain.Entities;
+using MentoriaQuintaFeira2021.Domain.Filters;
+using MentoriaQuintaFeira2021.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,6 +27,25 @@ namespace MentoriaQuintaFeira2021.Controllers
         public IActionResult Index()
         {
             return View(RepositorioProduto.Obter());
+        }
+
+        [HttpPost]
+        public IActionResult Index(IFormCollection form)
+        {
+            if (string.IsNullOrEmpty(form["tipoPesquisa[]"]) || string.IsNullOrEmpty(form["valor[]"]))
+            {
+                ViewBag.Erro = "Selecione os tipos de pesquisa e informe os valores";
+                return View(new List<Produto>());
+            }
+
+            FiltroProdutos filtro = new FiltroProdutos
+            {
+                Tipos = form["tipoPesquisa[]"].Select(x => int.Parse(x)).ToList(),
+                Valores = form["valor[]"].ToList()
+            };
+
+            List<Produto> produtos = RepositorioProduto.ListarProdutosComFiltro(filtro);
+            return View(produtos);
         }
 
         // GET: Produtos/Details/5
